@@ -3,6 +3,7 @@ package java8;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Streams {
     public static void main(String[] args) {
@@ -35,7 +36,23 @@ public class Streams {
 
 //        Given a String, find the first non-repeated character in it using Stream functions?
         Character ch = string.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(x->x,() -> new LinkedHashMap<>(), Collectors.counting())).entrySet().stream().filter(x -> x.getValue() == 1).findFirst().map(x -> x.getKey()).get();
-        System.out.println(ch);
+//        System.out.println(ch);
 
+
+
+
+
+//        Find the First Repeated Character in a String
+        Character c1 = string.chars().mapToObj(c->(char)c).collect(Collectors.groupingBy(x->x,LinkedHashMap::new,Collectors.counting())).entrySet().stream().filter(x->x.getValue()>1).map(x->x.getKey()).findFirst().get();
+        System.out.println(c1);
+
+//        Check if a String is a Palindrome
+        String str = "abcba";
+        boolean isPalindrome = IntStream.range(0, str.length() / 2)
+                .allMatch(i -> str.charAt(i) == str.charAt(str.length() - 1 - i));
+        //OR
+        String reversedString = new StringBuilder( str.chars().mapToObj(c->String.valueOf((char)c)).collect(Collectors.joining())).reverse().toString();
+        boolean equals = str.equals(reversedString);
+        System.out.println(equals);
     }
 }
