@@ -54,5 +54,18 @@ public class Streams {
         String reversedString = new StringBuilder( str.chars().mapToObj(c->String.valueOf((char)c)).collect(Collectors.joining())).reverse().toString();
         boolean equals = str.equals(reversedString);
         System.out.println(equals);
+
+//        Check if Any String Matches a Condition
+//        Question: Check if any string in a list contains “API”.
+        List<String> strings = Arrays.asList("Java", "Stream API", "Lambda");
+        boolean api = strings.stream().anyMatch(x -> x.contains("API"));
+        System.out.println(api);
+
+//        10. Group Strings by Length
+//        Question: Group a list of strings based on their length.
+        List<String> words = Arrays.asList("Java", "Stream", "API", "Code", "Fun");
+        Map<Integer, List<String>> collect1 = words.stream().collect(Collectors.groupingBy(x->x.length()));
+        System.out.println(collect1);
+
     }
 }
